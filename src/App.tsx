@@ -9,12 +9,12 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {BrowserRouter} from "react-router-dom";
-import {GeneralStoreType, StateType} from "./redux/state";
+import {ActionType, GeneralStoreType, StateType} from "./redux/state";
 
 type PropsStateType = {
     store: GeneralStoreType
     state: StateType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const App = (props: PropsStateType) => {

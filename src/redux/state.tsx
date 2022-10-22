@@ -1,3 +1,4 @@
+//------ BASE TYPE ---------------//
 export type PostType = {
     id: string
     message: string
@@ -29,32 +30,18 @@ export type StateType = {
     dialogsPage: MessagesPageType
     sidebar: Array<SidebarType>
 }
-//----- TYPE ACTION CREATOR -------
-// type TypeType = 'ADD-POST' | 'ADD-MESSAGE'
-//     | 'UPDATE-NEW-POST-TEXT' | 'UPDATE-NEW-MESSAGE-TEXT'
-// export type ActionType = AddPostAcType | AddMessageAcType
-//     | UpdatePostAcType | UpdateMessageAcType
-// export type AddPostAcType = {
-//     type: string
-// }
-// export type AddMessageAcType = {
-//     type: 'ADD-MESSAGE'
-// }
-// export type UpdatePostAcType = {
-//     type: 'UPDATE-NEW-POST-TEXT'
-//     newText: string
-// }
-// export type UpdateMessageAcType = {
-//     type: 'UPDATE-NEW-MESSAGE-TEXT'
-//     newText: string
-// }
+//----- TYPE ACTION CREATOR -------//
+export type ActionType = ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updatePostActionCreator>
+    | ReturnType<typeof addMessageActionCreator>
+    | ReturnType<typeof updateMessageActionCreator>
 
 export type GeneralStoreType = {
     _state: StateType
     _callSubscriber: (state: StateType) => void
     getState: () => StateType
     subscribe: (observer: (state: StateType) => void) => void
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
 export let store: GeneralStoreType = {
@@ -123,16 +110,16 @@ export let store: GeneralStoreType = {
 };
 //-----ACTION_CREATOR-------//
 export const addPostActionCreator = () => {
-    return {type: ADD_POST}
+    return {type: ADD_POST} as const
 }
 export const updatePostActionCreator = (text: string) => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: text}
+    return {type: UPDATE_NEW_POST_TEXT, newText: text} as const
 }
 export const addMessageActionCreator = () => {
-    return {type: ADD_MESSAGE}
+    return {type: ADD_MESSAGE} as const
 }
 export const updateMessageActionCreator = (text: string) => {
-    return {type: UPDATE_NEW_MESSAGE_TEXT, newText: text}
+    return {type: UPDATE_NEW_MESSAGE_TEXT, newText: text} as const
 }
 //-----CONSTANTS------------//
 const ADD_POST = 'ADD-POST';
