@@ -9,11 +9,12 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {BrowserRouter} from "react-router-dom";
-import {StateType} from "./redux/state";
+import {GeneralStoreType, StateType} from "./redux/state";
 
 type PropsStateType = {
+    store: GeneralStoreType
     state: StateType
-    dispatch: (action: {}) => void
+    dispatch: (action: any) => void
 }
 
 export const App = (props: PropsStateType) => {
@@ -29,8 +30,7 @@ export const App = (props: PropsStateType) => {
                            element={<Profile profilePage={props.state.profilePage}
                                              dispatch={props.dispatch}/>}/>
                     <Route path={"/dialogs/*"}
-                           element={<Dialogs messagesPage={props.state.dialogsPage}
-                                             dispatch={props.dispatch}/>}/>
+                           element={<Dialogs store={props.store}/>}/>
 
                     <Route path={"news"}
                            element={<News/>}/>
