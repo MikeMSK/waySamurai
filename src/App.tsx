@@ -13,10 +13,7 @@ import {StateType} from "./redux/state";
 
 type PropsStateType = {
     state: StateType
-    addPost: () => void
-    addMessage: () => void
-    updateNewPostText: (newText: string) => void
-    updateNewMessageText: (newText: string) => void
+    dispatch: (action: {}) => void
 }
 
 export const App = (props: PropsStateType) => {
@@ -30,12 +27,10 @@ export const App = (props: PropsStateType) => {
                 <Routes>
                     <Route path={"/profile"}
                            element={<Profile profilePage={props.state.profilePage}
-                                             addPost={props.addPost}
-                                             updateNewPostText={props.updateNewPostText}/>}/>
+                                             dispatch={props.dispatch}/>}/>
                     <Route path={"/dialogs/*"}
                            element={<Dialogs messagesPage={props.state.dialogsPage}
-                                             addMessage={props.addMessage}
-                                             updateNewMessageText={props.updateNewMessageText}/>}/>
+                                             dispatch={props.dispatch}/>}/>
 
                     <Route path={"news"}
                            element={<News/>}/>
