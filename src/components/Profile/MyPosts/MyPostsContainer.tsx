@@ -1,32 +1,26 @@
-import React, {ChangeEvent} from 'react';
-import s from "./MyPosts.module.css"
-import {Post} from "./Post/Post";
-import {
-    ActionType,
-    addPostActionCreator,
-    GeneralStoreType,
-    PostType,
-    updatePostActionCreator,
-} from "../../../redux/state";
+import React from 'react';
+import {addPostActionCreator, GeneralStoreType, updatePostActionCreator,} from "../../../redux/state";
 import {MyPosts} from "./MyPosts";
+import {StoreContext} from "../../../StoreContext";
 
-type PropsMyPostsContainerType = {
-    store: GeneralStoreType
-}
+export const MyPostsContainer = () => {
 
-export const MyPostsContainer = (props: PropsMyPostsContainerType) => {
+    return (
+        <StoreContext.Consumer>
+            {
+                (store: GeneralStoreType) => {
+                    let state = store.getState().profilePage
+                    const addPost = () => {
+                        store.dispatch(addPostActionCreator())
+                    }
+                    const onPostChange = (text: string) => {
+                        store.dispatch(updatePostActionCreator(text))
+                    }
 
-    let state = props.store.getState()
-
-    const addPost = () => {
-        props.store.dispatch(addPostActionCreator())
-    }
-    const onPostChange = (text: string) => {
-        props.store.dispatch(updatePostActionCreator(text))
-    }
-
-    return <MyPosts posts={state.profilePage.posts}
-                    newPostText={state.profilePage.newPostText}
-                    addPost={addPost}
-                    updateNewPostText={onPostChange}/>
+                    return <MyPosts posts={state.posts}
+                                    newPostText={state.newPostText}
+                                    addPost={addPost}
+                                    updateNewPostText={onPostChange}/>
+                }}
+        </StoreContext.Consumer>)
 };

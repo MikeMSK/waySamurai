@@ -1,26 +1,27 @@
-import React, {ChangeEvent} from 'react';
-import s from "./Dialogs.module.css"
-import {Message} from "./Message/Message";
-import {DialogItem} from "./DialogItem/DialogItem";
+import React from 'react';
 import {addMessageActionCreator, GeneralStoreType, updateMessageActionCreator} from "../../redux/state";
 import {Dialogs} from "./Dialogs";
+import {StoreContext} from "../../StoreContext";
 
-type PropsMessagesPageType = {
-    store: GeneralStoreType
-}
+export const DialogsContainer = () => {
 
-export const DialogsContainer = (props: PropsMessagesPageType) => {
+    return (
+        <StoreContext.Consumer>
+            {
+                (store: GeneralStoreType) => {
+                    let state = store.getState().dialogsPage
 
-    let state = props.store.getState().dialogsPage
-
-    const addMessage = () => {
-        props.store.dispatch(addMessageActionCreator())
-    }
-    const onMessageChange = (text: string) => {
-        props.store.dispatch(updateMessageActionCreator(text))
-    }
-
-    return <Dialogs dialogsPage={state}
-                    addMessage={addMessage}
-                    onMessageChange={onMessageChange}/>
+                    const addMessage = () => {
+                        store.dispatch(addMessageActionCreator())
+                    }
+                    const onMessageChange = (text: string) => {
+                        store.dispatch(updateMessageActionCreator(text))
+                    }
+                    return <Dialogs dialogsPage={state}
+                                    addMessage={addMessage}
+                                    onMessageChange={onMessageChange}/>
+                }
+            }
+        </StoreContext.Consumer>
+    )
 };
