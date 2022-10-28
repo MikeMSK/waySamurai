@@ -6,9 +6,7 @@ import {store, StateType} from "./redux/state";
 
 export let rerenderEntierTree = (state: StateType) => {
     ReactDOM.render(
-        <App store={store}
-             state={state}
-             dispatch={store.dispatch.bind(store)}/>,
+        <App store={store}/>,
         document.getElementById('root'));
 }
 

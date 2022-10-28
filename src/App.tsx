@@ -10,27 +10,27 @@ import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {BrowserRouter} from "react-router-dom";
 import {ActionType, GeneralStoreType, StateType} from "./redux/state";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type PropsStateType = {
     store: GeneralStoreType
-    state: StateType
-    dispatch: (action: ActionType) => void
 }
 
 export const App = (props: PropsStateType) => {
 
+    let state = props.store.getState()
+
     return <BrowserRouter>
         <div className={s.app_wrapper}>
             <Header/>
-            <Navbar sidebar={props.state.sidebar}/>
+            <Navbar sidebar={state.sidebar}/>
 
             <div className={s.app_wrapper_content}>
                 <Routes>
                     <Route path={"/profile"}
-                           element={<Profile profilePage={props.state.profilePage}
-                                             dispatch={props.dispatch}/>}/>
+                           element={<Profile store={props.store}/>}/>
                     <Route path={"/dialogs/*"}
-                           element={<Dialogs store={props.store}/>}/>
+                           element={<DialogsContainer store={props.store}/>}/>
 
                     <Route path={"news"}
                            element={<News/>}/>
