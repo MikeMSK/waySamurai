@@ -1,15 +1,16 @@
-export type SidebarType = {
-    id: string
-    name: string
+export type SideType = { id: string, name: string }
+export type SideBarInitialStateType = {
+    friend: Array<SideType>
 }
 export type SidebarAcType = ReturnType<typeof addAlertAC>
-type SideBarInitialStateType = typeof initialState
 
-let initialState = [
-    {id: "1", name: "Misha"},
-    {id: "3", name: "Piter"},
-    {id: "4", name: "Olya"}
-] as Array<SidebarType>
+let initialState = {
+    friend: [
+        {id: "1", name: "Misha"},
+        {id: "3", name: "Piter"},
+        {id: "4", name: "Olya"}
+    ]
+}
 
 export const sidebarReducer = (state: SideBarInitialStateType = initialState,
                                action: SidebarAcType): SideBarInitialStateType => {

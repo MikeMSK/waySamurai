@@ -48,7 +48,7 @@ const Users = (props: UsersPropsType) => {
             },
         ])
     }
-    console.log(props.usersPage.users.length)
+
     return <div>
         {props.usersPage.users.map(u => {
             return <div key={u.id}>

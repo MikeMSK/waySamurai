@@ -6,7 +6,7 @@ export type UserType = {
     status: string
     location: { country: string, city: string }
 }
-export type InitialStateType = {
+export type UsersInitialStateType = {
     users: Array<UserType>
 }
 export type UsersAcType = ReturnType<typeof followAC>
@@ -14,12 +14,12 @@ export type UsersAcType = ReturnType<typeof followAC>
     | ReturnType<typeof setUsersAC>
 
 
-let initialState: InitialStateType = {
+let initialState = {
     users: []
 };
 
-export const usersReducer = (state: InitialStateType = initialState,
-                             action: UsersAcType): InitialStateType => {
+export const usersReducer = (state: UsersInitialStateType = initialState,
+                             action: UsersAcType): UsersInitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {

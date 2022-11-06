@@ -1,16 +1,24 @@
 import {Sidebar} from "./Sidebar";
-import {addAlertAC, SidebarAcType} from "../../../redux/sidebar_reducer";
+import {addAlertAC, SidebarAcType, SideBarInitialStateType} from "../../../redux/sidebar_reducer";
 import {connect} from "react-redux";
-
+import {Dispatch} from "react";
 import {AppStateType} from "../../../redux/redux-store";
 
 
-const mapStateToProps = (state: AppStateType) => {
+type MapStateToPropsType = {
+    sidebarPage: SideBarInitialStateType
+}
+type MapDispatchToPropsType = {
+    addAlert: () => void
+}
+export type SidebarPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        sidebar: state.sideBarPage
+        sidebarPage: state.sideBarPage
     }
 }
-const mapDispatchToProps = (dispatch: (action: SidebarAcType) => void) => {
+const mapDispatchToProps = (dispatch: Dispatch<SidebarAcType>): MapDispatchToPropsType => {
     return {
         addAlert: () => dispatch(addAlertAC()),
     }

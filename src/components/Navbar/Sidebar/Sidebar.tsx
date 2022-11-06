@@ -1,16 +1,14 @@
 import React from 'react';
 import s from '../Navbar.module.css'
-import {SidebarType} from "../../../redux/store";
+import {SidebarPropsType} from "./SidebarContainer";
 
-type PropsSidebarType = {
-    sidebar: Array<SidebarType>
-    addAlert: () => void
-}
 
-export const Sidebar = (props: PropsSidebarType) => {
+export const Sidebar = (props: SidebarPropsType) => {
+
 
     return <span className={s.styleSidebar}>
-        {props.sidebar.map(s => {
+
+        {props.sidebarPage.friend.map(s => {
             const addAlert = () => props.addAlert()
 
             return <span key={s.id}
