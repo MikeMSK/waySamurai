@@ -8,20 +8,20 @@ type PropsSidebarType = {
 }
 
 export const Sidebar = (props: PropsSidebarType) => {
-    console.log(props.sidebar)
-    return <span className={s.styleSidebar}>
-        {/*{props.sidebar.map(s => {*/}
-        {/*    const addAlert = () => props.addAlert()*/}
 
-        {/*    return <span key={s.id}*/}
-        {/*                 onClick={addAlert}>*/}
-        {/*        <div>*/}
-        {/*            <img src="https://www.blexar.com/avatar.png" alt="img"/>*/}
-        {/*        </div>*/}
-        {/*        <div>*/}
-        {/*            {s.name}*/}
-        {/*        </div>*/}
-        {/*    </span>*/}
-        {/*})}*/}
+    return <span className={s.styleSidebar}>
+        {props.sidebar.map(s => {
+            const addAlert = () => props.addAlert()
+
+            return <span key={s.id}
+                         onClick={addAlert}>
+                <div>
+                    <img src="https://www.blexar.com/avatar.png" alt="img"/>
+                </div>
+                <div>
+                    {s.name}
+                </div>
+            </span>
+        })}
     </span>
 };
