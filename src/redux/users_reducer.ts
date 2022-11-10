@@ -1,10 +1,14 @@
 export type UserType = {
+    // photos: string | undefined | any;
+    name: string
     id: number
-    photoUrl: string
-    followed: boolean
-    fullName: string
+    photos: {
+        small: string | undefined | any,
+        large: string | undefined | any
+    }
     status: string
-    location: { country: string, city: string }
+    followed: boolean
+    // location: { country: string, city: string }
 }
 export type UsersInitialStateType = {
     users: Array<UserType>
