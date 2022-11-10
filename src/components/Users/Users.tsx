@@ -6,26 +6,23 @@ import userPhoto from "../../assets/images/user-latin-woman.jpeg"
 
 export class Users extends React.Component {
     //если стандартное поведение можно не писать
+    //конструирование обьекта осуществляется только 1 раз
     //@ts-ignore
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
-    getUser = () => {
-        //@ts-ignore
-        if (this.props.usersPage.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    //@ts-ignore
-                    this.props.setUsers(response.data.items);
-                })
-        }
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                //@ts-ignore
+                this.props.setUsers(response.data.items);
+            })
     }
 
     render() {
         return <div>
 
-            <button onClick={this.getUser}>get User!</button>
             {/*@ts-ignore*/}
             {this.props.usersPage.users.map(u => {
                 return <div key={u.id}>
