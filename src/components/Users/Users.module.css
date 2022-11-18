@@ -3,3 +3,10 @@
     height: 70px;
     border-radius: 35px;
 }
+
+.selectedPage {
+    font-weight: bold;
+    color: darkviolet;
+    margin: 5px;
+    font-size: 20px;
+}

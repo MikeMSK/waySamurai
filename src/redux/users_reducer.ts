@@ -12,14 +12,22 @@ export type UserType = {
 }
 export type UsersInitialStateType = {
     users: Array<UserType>
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
 }
-export type UsersAcType = ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAС>
-    | ReturnType<typeof setUsersAC>
+export type UsersAcType = ReturnType<typeof follow_AC>
+    | ReturnType<typeof unfollow_AС>
+    | ReturnType<typeof setUsers_AC>
+    | ReturnType<typeof setCurrentPage_AC>
+    | ReturnType<typeof setTotalUsersCount_AC>
 
 
-let initialState = {
-    users: []
+let initialState: UsersInitialStateType = {
+    users: [],
+    pageSize: 20,
+    totalUsersCount: 0,
+    currentPage: 2
 };
 
 export const usersReducer = (state: UsersInitialStateType = initialState,
@@ -46,22 +54,35 @@ export const usersReducer = (state: UsersInitialStateType = initialState,
                 })
             }
         case SET_USERS:
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
+        case SET_CURRENT_PAGE:
+            return {...state, currentPage: action.currentPage}
+        case SET_TOTAL_USER_COUNT:
+            return {...state, totalUsersCount: action.totalCount}
         default:
             return state
     }
 };
 
-export const followAC = (userID: number) => {
+export const follow_AC = (userID: number) => {
     return {type: FOLLOW, userID} as const
 }
-export const unfollowAС = (userID: number) => {
+export const unfollow_AС = (userID: number) => {
     return {type: UNFOLLOW, userID} as const
 }
-export const setUsersAC = (users: Array<UserType>) => {
+export const setUsers_AC = (users: Array<UserType>) => {
     return {type: SET_USERS, users} as const
+}
+export const setCurrentPage_AC = (currentPage: number) => {
+    return {type: SET_CURRENT_PAGE, currentPage} as const
+}
+export const setTotalUsersCount_AC = (totalCount: number) => {
+    return {type: SET_TOTAL_USER_COUNT, totalCount} as const
 }
 
 export const FOLLOW = 'FOLLOW'
 export const UNFOLLOW = 'UNFOLLOW'
 export const SET_USERS = 'SET-USERS'
+export const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+export const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT'
+
