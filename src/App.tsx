@@ -17,7 +17,7 @@ export const App = () => {
         <Navbar/>
         <Navbar/>
 
-        <div className={s.app_wrapper_content}>ß
+        <div className={s.app_wrapper_content}>
             <Routes>
                 <Route path={"/profile"}
                        element={<Profile/>}/>
