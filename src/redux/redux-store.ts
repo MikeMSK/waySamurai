@@ -4,6 +4,7 @@ import {dialogsReducer} from "./dialogs_reducer";
 import {sidebarReducer} from "./sidebar_reducer";
 import {usersReducer} from "./users_reducer";
 
+
 export type AppStateType = ReturnType<typeof rootReducer>
 
 let rootReducer = combineReducers({
