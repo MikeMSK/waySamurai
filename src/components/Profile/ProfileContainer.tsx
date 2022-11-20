@@ -1,21 +1,13 @@
-import React from 'react';
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import React, {JSXElementConstructor} from 'react';
 import {connect} from "react-redux";
-import {
-    follow,
-    setCurrentPage,
-    setTotalUsersCount,
-    setUsers,
-    toggleIsFetching,
-    unfollow
-} from "../../redux/users_reducer";
 import {AppStateType} from "../../redux/redux-store";
 import axios from "axios";
 import Preloader from "../common/Preloader/Preloader";
-import {Users} from "../Users/Users";
 import {setUserProfile} from "../../redux/profile_reducer";
 import {Profile} from "./Profile";
+import {useLocation, useMatch, useNavigate, useParams} from "react-router-dom";
+import {compose} from "redux";
+
 
 export class ProfileContainer extends React.Component<any> {
     //если стандартное поведение можно не писать
@@ -24,8 +16,13 @@ export class ProfileContainer extends React.Component<any> {
     //     super(props);
     // }
 
+
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/2')
+        let userID = this.props.router.params.userId;
+        if (!userID) {
+            userID = 2
+        }
+        axios.get('https://social-network.samuraijs.com/api/1.0/profile/' + userID)
             .then(response => {
                 this.props.setUserProfile(response.data)
             })
@@ -43,13 +40,28 @@ export class ProfileContainer extends React.Component<any> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        // status: state.profilePage
     }
 }
 
-export default connect(
-    mapStateToProps,
-    {setUserProfile}
-)(ProfileContainer);
+//оболочка для классовой компонеты и контейнерной
+export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => {
+    function ComponentWithRouterProp(props: any) {
+        let location = useLocation();
+        let navigate = useNavigate();
+        let params = useParams();
+
+        return <Component {...props}
+                          router={{location, navigate, params}}
+        />
+    }
+
+    return ComponentWithRouterProp;
+}
+
+// let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+
+export default compose<React.ComponentType>(connect(mapStateToProps, {setUserProfile}), withRouter)(ProfileContainer);
 
 // MyPostsContainer

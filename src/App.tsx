@@ -19,7 +19,7 @@ export const App = () => {
 
         <div className={s.app_wrapper_content}>
             <Routes>
-                <Route path={"/profile/*"}
+                <Route path={"/profile/:userId"}
                        element={<ProfileContainer/>}/>
                 <Route path={"/dialogs/*"}
                        element={<DialogsContainer/>}/>
