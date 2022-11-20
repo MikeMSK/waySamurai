@@ -1,0 +1,43 @@
+.nav {
+    display: grid;
+    height: auto;
+    grid-area: n;
+    background: steelblue;
+    padding: 10px;
+    width: 100px;
+}
+
+.navbar {
+
+}
+
+.sidebar {
+
+}
+
+.item {
+    text-decoration: none;
+    color: white;
+}
+
+/*.item a:hover {*/
+/*    font-size: 20px;*/
+/*    color: black;*/
+/*    font-weight: bold;*/
+/*}*/
+
+.active {
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+.styleSidebar img {
+    width: 50px;
+    border-radius: 25px;
+}
+
+.styleSidebar {
+    font-size: 14px;
+}

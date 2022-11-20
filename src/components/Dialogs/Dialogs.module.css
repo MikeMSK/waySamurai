@@ -1,0 +1,43 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 0.6fr 10fr;
+}
+
+.dialogsItems {
+    width: 60px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.dialogsItems .active {
+    color: whitesmoke;
+}
+
+.dialog {
+
+}
+
+.messages {
+    background-color: whitesmoke;
+    /*opacity: 0.5;*/
+}
+
+.message {
+    background-color: dodgerblue;
+    width: 130px;
+    height: auto;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.imgMessagePost img {
+    width: 50px;
+    border-radius: 25px;
+}
+
+.messagePost {
+
+    margin-bottom: 5px;
+
+}

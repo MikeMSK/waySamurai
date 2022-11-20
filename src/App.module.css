@@ -1,0 +1,28 @@
+.app_wrapper {
+    display: grid;
+    grid-template-areas:
+    "h h"
+    "n c "
+    "f f";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 0.7fr 12fr;
+    grid-gap: 5px;
+    width: 1440px;
+}
+
+.app_wrapper {
+    width: 100%;
+}
+
+.app_wrapper_content {
+    grid-area: c;
+    padding: 10px;
+    background: cornflowerblue;
+}
+
+
+
+
+
+
+

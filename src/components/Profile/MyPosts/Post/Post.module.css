@@ -1,0 +1,16 @@
+.item {
+    color: blue;
+    padding: 5px;
+}
+
+.item img {
+    margin: 5px;
+    width: 40px;
+    border-radius: 20px;
+}
+
+.item span {
+    padding: 3px;
+    border: solid 1px green;
+    border-radius: 3px;
+}
