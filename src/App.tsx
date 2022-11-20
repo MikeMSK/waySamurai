@@ -2,13 +2,13 @@ import React from 'react';
 import s from "./App.module.css";
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
-import {Profile} from "./components/Profile/Profile"
 import {Routes, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Setting from "./components/Setting/Setting";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 export const App = () => {
 
@@ -19,8 +19,8 @@ export const App = () => {
 
         <div className={s.app_wrapper_content}>
             <Routes>
-                <Route path={"/profile"}
-                       element={<Profile/>}/>
+                <Route path={"/profile/*"}
+                       element={<ProfileContainer/>}/>
                 <Route path={"/dialogs/*"}
                        element={<DialogsContainer/>}/>
                 <Route path={"/users/*"}
