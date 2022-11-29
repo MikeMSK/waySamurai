@@ -17,6 +17,7 @@ type MapDispatchToPropsType = {
 }
 export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType
 
+
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profilePage: state.profilePage

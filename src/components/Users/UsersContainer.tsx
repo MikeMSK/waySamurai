@@ -10,21 +10,34 @@ import Preloader from "../common/Preloader/Preloader";
 import s from "./Users.module.css"
 
 
-// export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
-// export type MapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>
-// type UsersAPIComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
+export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchStateToPropsType = ReturnType<typeof follow>
+    & ReturnType<typeof unfollow>
+    & ReturnType<typeof setUsers>
+    & ReturnType<typeof setCurrentPage>
+    & ReturnType<typeof setTotalUsersCount>
+    & ReturnType<typeof toggleIsFetching>
+type UsersAPIComponentPropsType = MapStateToPropsType & MapDispatchStateToPropsType & any
+//РАЗОБРАТЬСЯ С ТИПИЗАЦИЕЙ ----------------------------------------------------------!!!!
 
 //class component container
-class UsersContainer extends React.Component<any> {
+class UsersContainer extends React.Component<UsersAPIComponentPropsType> {
     //если стандартное поведение можно не писать
     //конструирование обьекта осуществляется только 1 раз
-    constructor(props: any) {
-        super(props);
-    }
+    // constructor(props: any) {
+    //     super(props);
+    // }
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(
+            `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+            {
+                withCredentials: true,
+                headers: {
+                    'API-KEY': '5a806959-8f18-4ed7-837f-0bbad2316e6b'
+                }
+            })
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items);
@@ -35,7 +48,14 @@ class UsersContainer extends React.Component<any> {
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get(
+            `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+            {
+                withCredentials: true,
+                headers: {
+                    'API-KEY': '5a806959-8f18-4ed7-837f-0bbad2316e6b'
+                }
+            })
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items);

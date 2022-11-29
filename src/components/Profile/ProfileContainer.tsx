@@ -63,20 +63,22 @@ export class ProfileContainer extends React.Component<ProfileContainerType> {
 
     componentDidMount() {
         let userID = this.props.router.params.userId;
-        if (!userID) userID = 2
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/' + userID)
+        if (userID === undefined) {
+            userID = 2
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userID)
             .then(response => {
                 this.props.setUserProfile(response.data)
             })
     }
 
     render() {
-        console.log(this.props)
         return <Profile {...this.props}
                         profile={this.props.profile}/>
     }
 }
 
+//-----------------------------------------------------------------------------------------
 const mapStateToProps = (state: AppStateType) => {
     return {
         profile: state.profilePage.profile,
@@ -97,5 +99,6 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
     return ComponentWithRouterProp;
 }
 
-export default compose<React.ComponentType>(connect(mapStateToProps,
+export default compose<React.ComponentType>(connect(
+    mapStateToProps,
     {setUserProfile}), withRouter)(ProfileContainer);
