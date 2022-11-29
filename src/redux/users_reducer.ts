@@ -16,6 +16,7 @@ export type UsersInitialStateType = {
     totalUsersCount: number,
     currentPage: number,
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 export type UsersAcType = ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
@@ -23,7 +24,7 @@ export type UsersAcType = ReturnType<typeof follow>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
-
+    | ReturnType<typeof toggleIsFollowingProgress>
 
 let initialState: UsersInitialStateType = {
     users: [],
@@ -31,6 +32,7 @@ let initialState: UsersInitialStateType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
+    followingInProgress: []
 };
 
 export const usersReducer = (state: UsersInitialStateType = initialState,
@@ -64,6 +66,13 @@ export const usersReducer = (state: UsersInitialStateType = initialState,
             return {...state, totalUsersCount: action.totalCount}
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
@@ -87,6 +96,9 @@ export const setTotalUsersCount = (totalCount: number) => {
 export const toggleIsFetching = (isFetching: boolean) => {
     return {type: TOGGLE_IS_FETCHING, isFetching} as const
 }
+export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) => {
+    return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId} as const
+}
 
 export const FOLLOW = 'FOLLOW'
 export const UNFOLLOW = 'UNFOLLOW'
@@ -94,4 +106,5 @@ export const SET_USERS = 'SET-USERS'
 export const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 export const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT'
 export const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
+export const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
 

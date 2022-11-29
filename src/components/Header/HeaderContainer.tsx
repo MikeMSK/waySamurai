@@ -15,7 +15,7 @@ type HeaderComponentPropsType = MapStateToPropsType & MapDispatchStateToPropsTyp
 class HeaderContainer extends React.Component<HeaderComponentPropsType> {
 
     componentDidMount() {
-        usersAPI.follow()
+        usersAPI.authorize()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, email, login} = data.data

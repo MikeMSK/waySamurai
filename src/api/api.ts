@@ -19,10 +19,20 @@ export const usersAPI = {
         return instance.get(
             `profile/` + userID)
     },
-    follow: () => {
+    authorize: () => {
         return instance.get(
             `/auth/me`)
             .then(response => response.data)
     },
+    follow: (id: number) => {
+        return instance.delete(
+            `follow/${id}`)
+            .then(response => response.data)
+    },
+    unfollow: (id: number) => {
+        return instance.post(
+            `follow/${id}`)
+            .then(response => response.data)
+    }
 }
 
