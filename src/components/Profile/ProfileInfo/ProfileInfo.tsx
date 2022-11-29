@@ -17,7 +17,8 @@ export const ProfileInfo = (props: ProfilePropsType) => {
                 alt="panorama"/>
         </div>
         <div className={s.descriptionBlock}>
-            <img src={props.profile.photos.large}/>
+            {/*глюк включить потом ----------------------!!!!!!!!!*/}
+            {/*<img src={props.profile.photos.large}/>*/}
             Main content
         </div>
     </div>
