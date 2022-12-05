@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Header} from "./Header";
 import axios from "axios";
-import {follow} from "../../redux/users_reducer";
+import {followSuccess} from "../../redux/users_reducer";
 import {setAuthUserData} from "../../redux/auth-reducer";
 import {usersAPI} from "../../api/api";
 

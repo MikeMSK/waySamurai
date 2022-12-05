@@ -1,7 +1,7 @@
 import {addPostActionCreator, profileReducer, updatePostActionCreator} from "./profile_reducer";
 import {addMessageAC, dialogsReducer, updateMessageAC} from "./dialogs_reducer";
 import {addAlertAC, sidebarReducer} from "./sidebar_reducer";
-import {follow, setUsers, unfollow} from "./users_reducer";
+import {followSuccess, setUsers, unfollowSuccess} from "./users_reducer";
 //------ BASE TYPE ---------------//
 // export type PostType = {
 //     id: string
