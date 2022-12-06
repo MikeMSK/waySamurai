@@ -1,12 +1,10 @@
 import React, {JSXElementConstructor} from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import axios from "axios";
-import {setUserProfile} from "../../redux/profile_reducer";
+import {getUsersProfile, setUserProfile} from "../../redux/profile_reducer";
 import {Profile} from "./Profile";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
-import {usersAPI} from "../../api/api";
 
 // export type ProfileContainerType11 = {
 //     profile: {
@@ -54,6 +52,7 @@ type MapDispatchStateToPropsType = ReturnType<typeof setUserProfile>
 type PropsType = {
     router: { params: { userId: number } }
     setUserProfile: any
+    getUsersProfile: any
 }
 type ProfileContainerType = MapStateToPropsType
     & MapDispatchStateToPropsType
@@ -67,10 +66,7 @@ export class ProfileContainer extends React.Component<ProfileContainerType> {
         if (userID === undefined) {
             userID = 2
         }
-        usersAPI.setUsers(userID)
-            .then(data => {
-                this.props.setUserProfile(data)
-            })
+        this.props.getUsersProfile(userID)
     }
 
     render() {
@@ -102,4 +98,4 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 
 export default compose<React.ComponentType>(connect(
     mapStateToProps,
-    {setUserProfile}), withRouter)(ProfileContainer);
+    {getUsersProfile}), withRouter)(ProfileContainer);

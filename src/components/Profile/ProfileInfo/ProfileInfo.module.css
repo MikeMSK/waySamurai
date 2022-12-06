@@ -1,3 +1,9 @@
-.decriptionBlock {
+.descriptionBlock {
     padding: 10px;
+}
+
+.descriptionBlock img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
 }

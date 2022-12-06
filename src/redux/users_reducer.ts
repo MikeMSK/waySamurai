@@ -86,6 +86,7 @@ export const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 export const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT'
 export const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 export const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
+
 //---- Action Creator ----
 export const followSuccess = (userID: number) => {
     return {type: FOLLOW, userID} as const
@@ -122,7 +123,6 @@ export const getUsers = (currentPage: number, pageSize: number) => {
             })
     }
 }
-
 export const follow = (userID: number) => {
     return (dispatch: any) => {
         dispatch(toggleIsFollowingProgress(true, userID))
