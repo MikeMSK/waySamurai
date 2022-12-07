@@ -1,0 +1,10 @@
+.loginPage {
+    margin-top: 50px;
+    width: 250px;
+    height: 100px;
+}
+
+.loginPage div {
+    float: right;
+    padding: 5px;
+}

@@ -3,6 +3,7 @@ import s from "./Dialogs.module.css"
 import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Navigate} from "react-router-dom";
 
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -12,6 +13,10 @@ export const Dialogs = (props: DialogsPropsType) => {
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onMessageChange(e.currentTarget.value)
+    }
+
+    if (!props.isAuth) {
+        return <Navigate replace to={'/login'}/>
     }
 
     let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id}

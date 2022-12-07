@@ -9,7 +9,6 @@ import {Dispatch} from "react";
 
 type MapStateToPropsType = {
     profilePage: ProfileInitialStateType
-
 }
 type MapDispatchToPropsType = {
     addPost: () => void
@@ -20,7 +19,7 @@ export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        profilePage: state.profilePage
+        profilePage: state.profilePage,
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch<ProfileAcType>): MapDispatchToPropsType => {
