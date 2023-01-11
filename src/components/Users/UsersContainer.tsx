@@ -12,6 +12,7 @@ import React from "react";
 import {Users} from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import s from "./Users.module.css"
+import {witAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchStateToPropsType = ReturnType<typeof followSuccess>
@@ -63,11 +64,13 @@ const mapStateToProps = (state: AppStateType) => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
+//HOC -redirect - авторизация
+// let witRedirect = witAuthRedirect(UsersContainer);
 
-export default connect(
+export default witAuthRedirect(connect(
     mapStateToProps,
     {
-        follow: followSuccess, unfollow: unfollowSuccess, setCurrentPage,
-        toggleIsFollowingProgress, getUsers
+        follow: followSuccess, unfollow: unfollowSuccess,
+        setCurrentPage, toggleIsFollowingProgress, getUsers
     }
-)(UsersContainer);
+)(UsersContainer));

@@ -3,8 +3,9 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {getUsersProfile, setUserProfile} from "../../redux/profile_reducer";
 import {Profile} from "./Profile";
-import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
+import {witAuthRedirect} from "../../hoc/withAuthRedirect";
 
 // export type ProfileContainerType11 = {
 //     profile: {
@@ -70,22 +71,17 @@ export class ProfileContainer extends React.Component<ProfileContainerType> {
     }
 
     render() {
-        if (!this.props.isAuth) {
-            return <Navigate replace to={'/login'}/>
-        }
         return <Profile {...this.props}
                         profile={this.props.profile}/>
     }
 }
 
+//HOC -redirect - авторизация
+let AuthRedirectComponent = witAuthRedirect(ProfileContainer)
 //-----------------------------------------------------------------------------------------
-const mapStateToProps = (state: AppStateType) => {
-    return {
-        profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
-    }
-}
-
+const mapStateToProps = (state: AppStateType) => ({
+    profile: state.profilePage.profile
+})
 //оболочка для классовой компонеты и контейнерной
 export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => {
     function ComponentWithRouterProp(props: any) {
@@ -102,4 +98,4 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 
 export default compose<React.ComponentType>(connect(
     mapStateToProps,
-    {getUsersProfile}), withRouter)(ProfileContainer);
+    {getUsersProfile}), withRouter)(AuthRedirectComponent);
