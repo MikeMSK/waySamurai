@@ -10,6 +10,7 @@ export type ProfileInitialStateType = typeof initialState
 export type ProfileAcType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updatePostActionCreator>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatus>
 
 const initialState = {
     profile: null,
