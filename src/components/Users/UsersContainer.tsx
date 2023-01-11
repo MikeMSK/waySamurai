@@ -13,6 +13,8 @@ import {Users} from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import s from "./Users.module.css"
 import {witAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
+import {Dialogs} from "../Dialogs/Dialogs";
 
 export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchStateToPropsType = ReturnType<typeof followSuccess>
@@ -67,10 +69,15 @@ const mapStateToProps = (state: AppStateType) => {
 //HOC -redirect - авторизация
 // let witRedirect = witAuthRedirect(UsersContainer);
 
-export default witAuthRedirect(connect(
-    mapStateToProps,
-    {
+export default compose<React.ComponentType>(
+    witAuthRedirect,
+    connect(mapStateToProps, {
         follow: followSuccess, unfollow: unfollowSuccess,
         setCurrentPage, toggleIsFollowingProgress, getUsers
-    }
-)(UsersContainer));
+    })
+)(UsersContainer);
+
+// DialogsContainer = compose<React.ComponentType>(
+//     connect(mapStateToProps, mapDispatchToProps),
+//     witAuthRedirect
+// )(Dialogs)

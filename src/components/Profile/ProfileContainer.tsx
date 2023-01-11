@@ -76,9 +76,6 @@ export class ProfileContainer extends React.Component<ProfileContainerType> {
     }
 }
 
-//HOC -redirect - авторизация
-let AuthRedirectComponent = witAuthRedirect(ProfileContainer)
-//-----------------------------------------------------------------------------------------
 const mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile
 })
@@ -97,5 +94,8 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 }
 
 export default compose<React.ComponentType>(connect(
-    mapStateToProps,
-    {getUsersProfile}), withRouter)(AuthRedirectComponent);
+        mapStateToProps,
+        {getUsersProfile}),
+    withRouter,
+    witAuthRedirect
+)(ProfileContainer)
