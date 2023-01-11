@@ -5,6 +5,7 @@ import {
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "react";
+import {compose} from "redux";
 
 
 type MapStateToPropsType = {

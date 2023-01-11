@@ -2,6 +2,7 @@ import React from 'react';
 import {Navigate} from "react-router-dom";
 import {AppStateType} from "../redux/redux-store";
 import {connect} from "react-redux";
+import {compose} from "redux";
 
 
 const mapStateToPropsForRedirect = (state: AppStateType) => ({
@@ -20,7 +21,7 @@ export const witAuthRedirect = (Component: any) => {
         }
     }
 
-    let ConnectAuthRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent);
-
-    return ConnectAuthRedirectComponent;
+    return compose(
+        connect(mapStateToPropsForRedirect)
+    )(RedirectComponent);
 }

@@ -1,7 +1,7 @@
 import React, {JSXElementConstructor} from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {getUsersProfile, setUserProfile} from "../../redux/profile_reducer";
+import {getStatus, getUsersProfile, setUserProfile, updateStatus} from "../../redux/profile_reducer";
 import {Profile} from "./Profile";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
@@ -48,16 +48,19 @@ import {witAuthRedirect} from "../../hoc/withAuthRedirect";
 //     }
 //     setUserProfile: () => void
 // }
-type MapStateToPropsType = ReturnType<typeof mapStateToProps> | { isAuth: any }
-type MapDispatchStateToPropsType = ReturnType<typeof setUserProfile>
+type MapStateToPropsType = ReturnType<typeof mapStateToProps> & { isAuth: any }
+type MapDispatchStateToPropsType = ReturnType<typeof getUsersProfile>
+    | ReturnType<typeof getStatus> | ReturnType<typeof updateStatus>
 type PropsType = {
     router: { params: { userId: number } }
     setUserProfile: any
     getUsersProfile: any
+    getStatus: any
+    updateStatus: (value: string) => void
 }
-type ProfileContainerType = MapStateToPropsType
+type ProfileContainerType = PropsType
+    & MapStateToPropsType
     & MapDispatchStateToPropsType
-    & PropsType
 
 
 export class ProfileContainer extends React.Component<ProfileContainerType> {
@@ -65,19 +68,24 @@ export class ProfileContainer extends React.Component<ProfileContainerType> {
     componentDidMount() {
         let userID = this.props.router.params.userId;
         if (userID === undefined) {
-            userID = 2
+            userID = 23033
         }
         this.props.getUsersProfile(userID)
+        this.props.getStatus(userID)
     }
 
     render() {
         return <Profile {...this.props}
-                        profile={this.props.profile}/>
+                        profile={this.props.profile}
+                        status={this.props.status}
+                        updateStatus={this.props.updateStatus}
+        />
     }
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    status: state.profilePage.status,
 })
 //оболочка для классовой компонеты и контейнерной
 export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => {
@@ -93,9 +101,9 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
     return ComponentWithRouterProp;
 }
 
-export default compose<React.ComponentType>(connect(
-        mapStateToProps,
-        {getUsersProfile}),
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUsersProfile, getStatus, updateStatus}),
     withRouter,
     // witAuthRedirect
 )(ProfileContainer)

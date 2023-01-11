@@ -6,6 +6,7 @@ import axios from "axios";
 import {followSuccess} from "../../redux/users_reducer";
 import {getAuthUserData, setAuthUserData} from "../../redux/auth-reducer";
 import {authAPI, usersAPI} from "../../api/api";
+import {compose} from "redux";
 
 export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchStateToPropsType = ReturnType<typeof setAuthUserData>
@@ -31,4 +32,6 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {authorize: getAuthUserData})(HeaderContainer);
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {authorize: getAuthUserData})
+)(HeaderContainer)
