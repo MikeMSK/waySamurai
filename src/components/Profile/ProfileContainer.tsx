@@ -97,5 +97,5 @@ export default compose<React.ComponentType>(connect(
         mapStateToProps,
         {getUsersProfile}),
     withRouter,
-    witAuthRedirect
+    // witAuthRedirect
 )(ProfileContainer)
