@@ -22,9 +22,10 @@ type MapDispatchStateToPropsType = ReturnType<typeof followSuccess>
     & ReturnType<typeof setCurrentPage>
     & ReturnType<typeof setTotalUsersCount>
     & ReturnType<typeof getUsers>
+// type PropsType = {
+//     ??????
+// }
 type UsersAPIComponentPropsType = MapStateToPropsType & MapDispatchStateToPropsType & any
-
-//РАЗОБРАТЬСЯ С ТИПИЗАЦИЕЙ ----------------------------------------------------------!!!!
 
 
 class UsersContainer extends React.Component<UsersAPIComponentPropsType> {
@@ -50,8 +51,7 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType> {
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
 
-                   onPageChanged={this.onPageChanged}
-            />
+                   onPageChanged={this.onPageChanged}/>
         </>
     }
 }
@@ -66,9 +66,8 @@ const mapStateToProps = (state: AppStateType) => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
-//HOC -redirect - авторизация
-// let witRedirect = witAuthRedirect(UsersContainer);
 
+// --- compose --- connect --- HOC
 export default compose<React.ComponentType>(
     witAuthRedirect,
     connect(mapStateToProps, {
@@ -76,8 +75,3 @@ export default compose<React.ComponentType>(
         setCurrentPage, toggleIsFollowingProgress, getUsers
     })
 )(UsersContainer);
-
-// DialogsContainer = compose<React.ComponentType>(
-//     connect(mapStateToProps, mapDispatchToProps),
-//     witAuthRedirect
-// )(Dialogs)

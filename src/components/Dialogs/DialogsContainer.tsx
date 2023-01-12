@@ -6,10 +6,8 @@ import {AppStateType} from "../../redux/redux-store";
 import {witAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-type MapStateToPropsType = {
-    dialogsPage: DialogsInitialStateType
-    isAuth: any
-} //-------any
+// --- type
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchToPropsType = {
     addMessage: () => void
     onMessageChange: (text: string) => void
@@ -27,6 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<DialogsAcType>): MapDispatchToPro
     }
 }
 
+// --- compose --- connect --- HOC
 export const DialogsContainer = compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
     witAuthRedirect

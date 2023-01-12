@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
-import imgNoAva from './../../../img/No-avatar.jpeg'
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 type ProfilePropsType = {

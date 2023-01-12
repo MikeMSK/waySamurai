@@ -31,6 +31,7 @@ export const App = () => {
 
                 <Route path={"/users/*"}
                        element={<UsersContainer/>}/>
+
                 //--------------------------------------//
                 <Route path={"news"}
                        element={<News/>}/>
