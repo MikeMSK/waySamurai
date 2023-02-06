@@ -1,10 +1,14 @@
 import React from 'react';
 import s from "./Users.module.css"
 import userPhoto from "../../assets/images/user-latin-woman.jpeg"
-import {follow, toggleIsFollowingProgress, unfollow, UsersInitialStateType} from "../../redux/users_reducer";
+import {
+    followTC,
+    setCurrentPage,
+    toggleIsFollowingProgress,
+    unfollowTC,
+    UsersInitialStateType
+} from "../../redux/users_reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     pageSize: number,
@@ -22,58 +26,54 @@ type UsersPropsType = {
 
 export const Users = (props: UsersPropsType) => {
 
-    let pagesCount = Math.ceil((props.totalUsersCount / 20) / props.pageSize);
+    let pagesCount = Math.ceil((props.totalUsersCount / 50) / props.pageSize);
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
 
-    return <div>
+    return (
         <div>
-            {pages.map((p, index) => {
-                return <span className={props.currentPage === p ? s.selectedPage : ""}
-                             onClick={(e) => props.onPageChanged(p)}
-                             key={index}>
+            <div>
+                {pages.map((p, index) => {
+                    // console.log(props.currentPage)
+                    return <span className={props.currentPage === p ? s.selectedPage : ""}
+                                 onClick={() => props.onPageChanged(p)}
+                                 key={index}>
                         {p}
                     </span>
-            })}
-        </div>
-        {props.usersPage.users.map(u => {
-            return <div key={u.id}>
+                })}
+            </div>
+            {props.usersPage.users.map(user => {
+                return <div key={user.id}>
                 <span>
                     <div>
-                        <NavLink to={`/profile/${u.id}`}>
-                            <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                        <NavLink to={`/profile/${user.id}`}>
+                            <img src={user.photos.small !== null ? user.photos.small : userPhoto}
                                  alt="users"
                                  className={s.userPhoto}/>
                             </NavLink>
                     </div>
+
                     <div>
-                        {u.followed
-                            ? <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                      onClick={() => {
-                                          props.unfollow(u.id)
-                                      }}>Unfollow
+                        {user.followed
+                            ? <button disabled={props.followingInProgress.some(id => id === user.id)}
+                                      onClick={() => props.unfollow(user.id)}>
+                                Unfollow
                             </button>
-                            : <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                      onClick={() => {
-                                          props.follow(u.id)
-                                      }}>Follow
+                            : <button disabled={props.followingInProgress.some(id => id === user.id)}
+                                      onClick={() => props.follow(user.id)}>
+                                Follow
                             </button>}
                     </div>
                 </span>
-                <span>
+                    <span>
                         <span>
-                            <div>{u.name}</div>
-                            <div>{u.status}</div>
+                            <div>{user.name}</div>
+                            <div>{user.status}</div>
                         </span>
-                    {/*временно удалены так как не приходят с сервера*/}
-                    {/*<span>*/}
-                    {/*    <div>{u.location.country}</div>*/}
-                    {/*    <div>{u.location.city}</div>*/}
-                    {/*</span>*/}
                     </span>
-            </div>
-        })}
-    </div>
+                </div>
+            })}
+        </div>)
 }

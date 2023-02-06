@@ -1,31 +1,16 @@
 import {connect} from "react-redux";
 import {
-    followSuccess,
-    getUsers,
+    followTC,
+    getUsersTC,
     setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFollowingProgress,
-    unfollowSuccess,
+    unfollowTC,
 } from "../../redux/users_reducer";
 import {AppStateType} from "../../redux/redux-store";
 import React from "react";
 import {Users} from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import s from "./Users.module.css"
 import {witAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {Dialogs} from "../Dialogs/Dialogs";
-
-export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
-type MapDispatchStateToPropsType = ReturnType<typeof followSuccess>
-    & ReturnType<typeof unfollowSuccess>
-    & ReturnType<typeof setCurrentPage>
-    & ReturnType<typeof setTotalUsersCount>
-    & ReturnType<typeof getUsers>
-// type PropsType = {
-//     ??????
-// }
-type UsersAPIComponentPropsType = MapStateToPropsType & MapDispatchStateToPropsType & any
 
 
 class UsersContainer extends React.Component<UsersAPIComponentPropsType> {
@@ -36,6 +21,7 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType> {
 
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize)
+        this.props.setCurrentPage(pageNumber)
     }
 
     render() {
@@ -71,7 +57,19 @@ const mapStateToProps = (state: AppStateType) => {
 export default compose<React.ComponentType>(
     witAuthRedirect,
     connect(mapStateToProps, {
-        follow: followSuccess, unfollow: unfollowSuccess,
-        setCurrentPage, toggleIsFollowingProgress, getUsers
+        follow: followTC, unfollow: unfollowTC,
+        getUsers: getUsersTC, setCurrentPage,
     })
 )(UsersContainer);
+
+
+export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchStateToPropsType =
+    | ReturnType<typeof followTC>
+    | ReturnType<typeof unfollowTC>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof getUsersTC>
+// type PropsType = {
+//     ??????
+// }
+type UsersAPIComponentPropsType = MapStateToPropsType & MapDispatchStateToPropsType & any

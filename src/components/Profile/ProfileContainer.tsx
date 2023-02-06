@@ -1,27 +1,11 @@
 import React, {JSXElementConstructor} from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {getStatus, getUsersProfile, setUserProfile, updateStatus} from "../../redux/profile_reducer";
+import {getStatusTC, getUsersProfileTC, setUserProfileAC, updateStatusTC} from "../../redux/profile_reducer";
 import {Profile} from "./Profile";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
 import {witAuthRedirect} from "../../hoc/withAuthRedirect";
-
-// --- type
-type MapStateToPropsType = ReturnType<typeof mapStateToProps>
-type MapDispatchStateToPropsType = ReturnType<typeof getUsersProfile>
-    | ReturnType<typeof getStatus>
-    | ReturnType<typeof updateStatus>
-type PropsType = {
-    router: { params: { userId: number } }
-    setUserProfile: (userID: number) => void
-    getUsersProfile: (userID: number) => void
-    getStatus: (userID: number) => void
-    updateStatus: (value: string) => void
-}
-type ProfileContainerType = PropsType
-    & MapStateToPropsType
-    & MapDispatchStateToPropsType
 
 
 export class ProfileContainer extends React.Component<ProfileContainerType> {
@@ -63,7 +47,23 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 
 // --- compose --- connect --- HOC
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUsersProfile, getStatus, updateStatus}),
+    connect(mapStateToProps, {getUsersProfile: getUsersProfileTC, getStatus: getStatusTC, updateStatus: updateStatusTC}),
     withRouter,
     witAuthRedirect
 )(ProfileContainer)
+
+// --- type
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchStateToPropsType = ReturnType<typeof getUsersProfileTC>
+    | ReturnType<typeof getStatusTC>
+    | ReturnType<typeof updateStatusTC>
+type PropsType = {
+    router: { params: { userId: number } }
+    setUserProfile: (userID: number) => void
+    getUsersProfile: (userID: number) => void
+    getStatus: (userID: number) => void
+    updateStatus: (value: string) => void
+}
+type ProfileContainerType = PropsType
+    & MapStateToPropsType
+    & MapDispatchStateToPropsType

@@ -1,5 +1,5 @@
 import {authAPI, usersAPI} from "../api/api";
-import {setUserProfile} from "./profile_reducer";
+import {setUserProfileAC} from "./profile_reducer";
 
 export type authInitialStateType = {
     userId: number | null
