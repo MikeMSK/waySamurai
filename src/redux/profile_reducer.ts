@@ -15,7 +15,10 @@ export const profileReducer = (state: ProfileInitialStateType = initialState,
                                action: ProfileAcType): ProfileInitialStateType => {
     switch (action.type) {
         case ADD_POST:
-            return {...state, posts: [...state.posts, {id: "10", message: action.newPostText, likesCount: 0}]}
+            return {
+                ...state,
+                posts: [...state.posts, {id: `${Math.random()}`, message: action.newPostText, likesCount: 0}]
+            }
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         case SET_STATUS:
