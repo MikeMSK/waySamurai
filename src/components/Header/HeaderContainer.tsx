@@ -2,15 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Header} from "./Header";
-import axios from "axios";
-import {followSuccessAC} from "../../redux/users_reducer";
-import {getAuthUserData, setAuthUserData} from "../../redux/auth-reducer";
-import {authAPI, usersAPI} from "../../api/api";
+import {getAuthUserDataTC, logoutTC, setAuthUserDataAC} from "../../redux/auth-reducer";
 import {compose} from "redux";
-
-export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
-type MapDispatchStateToPropsType = ReturnType<typeof setAuthUserData>
-type HeaderComponentPropsType = MapStateToPropsType & MapDispatchStateToPropsType & any
 
 
 class HeaderContainer extends React.Component<HeaderComponentPropsType> {
@@ -25,13 +18,18 @@ class HeaderContainer extends React.Component<HeaderComponentPropsType> {
 }
 
 //---------------------------------------------------------------------------
-const mapStateToProps = (state: AppStateType) => {
-    return {
-        isAuth: state.auth.isAuth,
-        login: state.auth.login,
-    }
-}
+const mapStateToProps = (state: AppStateType) => ({
+    isAuth: state.auth.isAuth,
+    login: state.auth.login,
+})
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {authorize: getAuthUserData})
+export default compose<React.ComponentType>(connect(
+    mapStateToProps,
+    {authorize: getAuthUserDataTC, logout: logoutTC})
 )(HeaderContainer)
+
+
+//types
+export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchStateToPropsType = ReturnType<typeof setAuthUserDataAC>
+export type HeaderComponentPropsType = MapStateToPropsType & MapDispatchStateToPropsType & any

@@ -10,10 +10,24 @@ const instance = axios.create({
 
 export const authAPI = {
     authorizeME: () => {
-        return instance.get(
-            `/auth/me`)
+        return instance.get(`/auth/me`)
             .then(response => response.data)
     },
+    login: (email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) => {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
+            .then(response => response.data)
+    },
+    logout: () => {
+        return instance.delete(`auth/login`)
+            .then(response => response.data)
+    },
+}
+
+export const securityAPI = {
+    getCaptchaUrl: () => {
+        return instance.get(`security/get-captcha-url`)
+            .then(response => response.data)
+    }
 }
 
 export const usersAPI = {
@@ -23,30 +37,26 @@ export const usersAPI = {
             .then(response => response.data)
     },
     follow: (id: number) => {
-        return instance.post(
-            `follow/${id}`)
+        return instance.post(`follow/${id}`)
             .then(response => response.data)
     },
     unfollow: (id: number) => {
-        return instance.delete(
-            `follow/${id}`)
+        return instance.delete(`follow/${id}`)
             .then(response => response.data)
     },
 }
 
 export const profileAPI = {
-
     getProfile: (userID: number) => {
-        return instance.get(
-            `profile/` + userID)
+        return instance.get(`profile/` + userID)
     },
     getStatus: (userID: number) => {
-        return instance.get(
-            `profile/status/` + userID)
+        return instance.get(`profile/status/` + userID)
     },
     updateStatus: (status: string) => {
         return instance.put(
-            `profile/status`, {status: status})
+            `profile/status`,
+            {status: status})
     },
 }
 

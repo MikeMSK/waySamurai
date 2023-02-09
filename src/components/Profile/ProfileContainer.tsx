@@ -31,6 +31,7 @@ const mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
 })
+
 //оболочка для классовой компонеты и контейнерной
 export const withRouter = (Component: JSXElementConstructor<any>): JSXElementConstructor<any> => {
     function ComponentWithRouterProp(props: any) {
@@ -46,11 +47,11 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 }
 
 // --- compose --- connect --- HOC
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUsersProfile: getUsersProfileTC, getStatus: getStatusTC, updateStatus: updateStatusTC}),
-    withRouter,
-    witAuthRedirect
-)(ProfileContainer)
+export default compose<React.ComponentType>(connect(
+        mapStateToProps,
+        {getUsersProfile: getUsersProfileTC, getStatus: getStatusTC, updateStatus: updateStatusTC}),
+    withRouter, witAuthRedirect)
+(ProfileContainer)
 
 // --- type
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -66,4 +67,4 @@ type PropsType = {
 }
 type ProfileContainerType = PropsType
     & MapStateToPropsType
-    & MapDispatchStateToPropsType
+& MapDispatchStateToPropsType

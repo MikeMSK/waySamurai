@@ -20,8 +20,8 @@ export function witAuthRedirect(Component: ComponentType) {
         return <Component {...restProps}/>
     }
 
-    return compose<React.ComponentType>(
-        connect(mapStateToPropsForRedirect)
+    return compose<React.ComponentType>( connect(
+        mapStateToPropsForRedirect)
     )(RedirectComponent);
 }
 
