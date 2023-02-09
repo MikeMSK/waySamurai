@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Login.module.css'
+import s2FormControl from '../components/common/FormsControls/FormsControls.module.css'
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../components/common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../utils/validators/validators";
@@ -29,7 +30,7 @@ const Login = (props: any) => {
 };
 
 //form
-const LoginForm = ({handleSubmit, captchaUrl}: any) => {
+const LoginForm = ({handleSubmit, captchaUrl, error}: any) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -58,6 +59,10 @@ const LoginForm = ({handleSubmit, captchaUrl}: any) => {
                                   component={Input}
                                   validate={[required, maxLength20]}
                                   type={'text'}/>
+            }
+            {error && <div className={s2FormControl.formSummaryError}>
+                {error}
+            </div>
             }
             <div>
                 <button>Login</button>

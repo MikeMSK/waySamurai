@@ -30,6 +30,8 @@ export class ProfileContainer extends React.Component<ProfileContainerType> {
 const mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
 })
 
 //оболочка для классовой компонеты и контейнерной
@@ -67,4 +69,4 @@ type PropsType = {
 }
 type ProfileContainerType = PropsType
     & MapStateToPropsType
-& MapDispatchStateToPropsType
+    & MapDispatchStateToPropsType

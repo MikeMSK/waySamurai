@@ -45,18 +45,15 @@ export const getAuthUserDataTC = () => {
 }
 export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string) => {
     return (dispatch: any) => {
-        dispatch(stopSubmit('login', {email: 'Email is wrong'}))
-        return
         authAPI.login(email, password, rememberMe, captcha)
             .then(res => {
                 if (res.resultCode === 0) {
                     dispatch(getAuthUserDataTC())
-                }
-                if (res.resultCode === 1) {
-
-                }
-                if (res.resultCode === 10) {
+                } else if (res.resultCode === 10) {
                     dispatch(getCaptchaUrlTC())
+                } else {
+                    let messages = res.messages.length > 0 ? res.messages[0] : "Some error";
+                    dispatch(stopSubmit('login', {_error: messages}))
                 }
             })
             .catch((err) => err.messages)
