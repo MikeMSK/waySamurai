@@ -1,27 +1,8 @@
 import React from 'react';
 import s from "./Users.module.css"
 import userPhoto from "../../assets/images/user-latin-woman.jpeg"
-import {
-    followTC,
-    setCurrentPage,
-    toggleIsFollowingProgress,
-    unfollowTC,
-    UsersInitialStateType
-} from "../../redux/users_reducer";
+import {UsersInitialStateType} from "../../redux/users_reducer";
 import {NavLink} from "react-router-dom";
-
-type UsersPropsType = {
-    pageSize: number,
-    currentPage: number
-    totalUsersCount: number,
-    usersPage: UsersInitialStateType
-    followingInProgress: Array<number>
-
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-
-    onPageChanged: (pageNumber: number) => void
-}
 
 
 export const Users = (props: UsersPropsType) => {
@@ -31,7 +12,6 @@ export const Users = (props: UsersPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-
     return (
         <div>
             <div>
@@ -76,4 +56,18 @@ export const Users = (props: UsersPropsType) => {
                 </div>
             })}
         </div>)
+}
+
+//types
+type UsersPropsType = {
+    pageSize: number,
+    currentPage: number
+    totalUsersCount: number,
+    usersPage: UsersInitialStateType
+    followingInProgress: Array<number>
+
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
+
+    onPageChanged: (pageNumber: number) => void
 }

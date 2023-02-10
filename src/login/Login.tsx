@@ -6,7 +6,7 @@ import {Input} from "../components/common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../utils/validators/validators";
 import {connect} from "react-redux";
 import {getCaptchaUrlTC, loginTC} from "../redux/auth-reducer";
-import {Navigate, redirect, useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {AppStateType} from "../redux/redux-store";
 
 
@@ -15,8 +15,11 @@ const Login = (props: any) => {
     const onSubmit = (formData: FormDataType) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
-// warning ??? redirect <Navigate to={}/>
-    if (props.isAuth) navigate("/profile")
+
+
+    if (props.isAuth) {
+        return <Navigate replace to={"/profile"}/>
+    }
 
     return (
         <div className={s.loginPage}>
@@ -72,12 +75,13 @@ const LoginForm = ({handleSubmit, captchaUrl, error}: any) => {
 }
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
-
+//props
 const mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth,
     captchaUrl: state.auth.captchaUrl
 })
 
+// --- compose --- connect --- HOC
 export default connect(
     mapStateToProps,
     {login: loginTC, getCaptchaUrl: getCaptchaUrlTC})

@@ -1,7 +1,7 @@
 import React, {JSXElementConstructor} from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {getStatusTC, getUsersProfileTC, setUserProfileAC, updateStatusTC} from "../../redux/profile_reducer";
+import {getStatusTC, getUsersProfileTC, updateStatusTC} from "../../redux/profile_reducer";
 import {Profile} from "./Profile";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
@@ -9,11 +9,16 @@ import {witAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 export class ProfileContainer extends React.Component<ProfileContainerType> {
-
     componentDidMount() {
         let userID = this.props.router.params.userId;
-        if (userID === undefined) {
-            userID = 23033
+        if (!userID) {
+            // @ts-ignore
+            userID = this.props.authorizedUserId
+            if (!userID) {
+                // @ts-ignore
+                this.props.history.push('/login')
+            }
+
         }
         this.props.getUsersProfile(userID)
         this.props.getStatus(userID)
@@ -27,6 +32,7 @@ export class ProfileContainer extends React.Component<ProfileContainerType> {
     }
 }
 
+//props
 const mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
@@ -40,7 +46,6 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
         let location = useLocation();
         let navigate = useNavigate();
         let params = useParams();
-
         return <Component {...props}
                           router={{location, navigate, params}}/>
     }

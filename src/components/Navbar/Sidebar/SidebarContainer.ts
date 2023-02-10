@@ -5,14 +5,7 @@ import {Dispatch} from "react";
 import {AppStateType} from "../../../redux/redux-store";
 
 
-type MapStateToPropsType = {
-    sidebarPage: SideBarInitialStateType
-}
-type MapDispatchToPropsType = {
-    addAlert: () => void
-}
-export type SidebarPropsType = MapStateToPropsType & MapDispatchToPropsType
-
+//props
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         sidebarPage: state.sideBarPage
@@ -23,5 +16,15 @@ const mapDispatchToProps = (dispatch: Dispatch<SidebarAcType>): MapDispatchToPro
         addAlert: () => dispatch(addAlertAC()),
     }
 }
+
 //------react-redux------
 export const SidebarContainer = connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+
+//types
+export type SidebarPropsType = MapStateToPropsType & MapDispatchToPropsType
+type MapStateToPropsType = {
+    sidebarPage: SideBarInitialStateType
+}
+type MapDispatchToPropsType = {
+    addAlert: () => void
+}

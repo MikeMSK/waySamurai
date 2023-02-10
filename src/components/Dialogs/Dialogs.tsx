@@ -7,6 +7,7 @@ import {Field, reduxForm} from "redux-form";
 import {Textarea} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
 
+
 export const Dialogs = (props: DialogsPropsType) => {
 
     let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id}
@@ -19,6 +20,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     const addNewMessage = (values: any) => {
         props.addMessage(values.newMassageBody)
     }
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -33,9 +35,9 @@ export const Dialogs = (props: DialogsPropsType) => {
         </div>
     )
 };
-
+//validate
 const maxLength50 = maxLengthCreator(50)
-
+//form
 const AddMessageForm = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>

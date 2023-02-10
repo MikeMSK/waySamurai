@@ -33,7 +33,7 @@ export const getCaptchaUrlSuccessAC = (captchaUrl: string | null) => {
 //---- thunks -----
 export const getAuthUserDataTC = () => {
     return (dispatch: any) => {
-        authAPI.authorizeME()
+        return authAPI.authorizeME()
             .then(res => {
                 if (res.resultCode === 0) {
                     let {id, email, login} = res.data

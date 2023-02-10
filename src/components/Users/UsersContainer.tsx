@@ -2,15 +2,22 @@ import {connect} from "react-redux";
 import {
     followTC,
     getUsersTC,
-    setCurrentPage,
+    setCurrentPageAC,
     unfollowTC,
 } from "../../redux/users_reducer";
 import {AppStateType} from "../../redux/redux-store";
 import React from "react";
 import {Users} from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {witAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 
 class UsersContainer extends React.Component<UsersAPIComponentPropsType> {
@@ -42,34 +49,36 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => {
-    return {
-        usersPage: state.usersPage,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
-    }
-}
+//props
+// const mapStateToProps = (state: AppStateType) => ({
+//     usersPage: state.usersPage,
+//     pageSize: state.usersPage.pageSize,
+//     totalUsersCount: state.usersPage.totalUsersCount,
+//     currentPage: state.usersPage.currentPage,
+//     isFetching: state.usersPage.isFetching,
+//     followingInProgress: state.usersPage.followingInProgress
+// })
+const mapStateToProps = (state: AppStateType) => ({
+    usersPage: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
+})
+
 
 // --- compose --- connect --- HOC
-export default compose<React.ComponentType>(
-    witAuthRedirect,
-    connect(mapStateToProps, {
-        follow: followTC, unfollow: unfollowTC,
-        getUsers: getUsersTC, setCurrentPage,
-    })
+export default compose<React.ComponentType>(connect(
+    mapStateToProps,
+    {follow: followTC, unfollow: unfollowTC, getUsers: getUsersTC, setCurrentPage: setCurrentPageAC}),
 )(UsersContainer);
 
-
+//types
 export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchStateToPropsType =
     | ReturnType<typeof followTC>
     | ReturnType<typeof unfollowTC>
-    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof getUsersTC>
-// type PropsType = {
-//     ??????
-// }
 type UsersAPIComponentPropsType = MapStateToPropsType & MapDispatchStateToPropsType & any

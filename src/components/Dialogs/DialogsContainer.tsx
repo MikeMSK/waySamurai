@@ -7,6 +7,7 @@ import {witAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
+//props
 const mapStateToProps = (state: AppStateType) => ({
     dialogsPage: state.dialogsPage
 })
