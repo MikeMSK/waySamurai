@@ -31,10 +31,11 @@ export const securityAPI = {
 }
 
 export const usersAPI = {
-    getUsers: (currentPage: number, pageSize: number) => {
+    requestUsers: (currentPage: number, pageSize: number) => {
         return instance.get(
             `users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
+            .catch(err => err.messages)
     },
     follow: (id: number) => {
         return instance.post(`follow/${id}`)

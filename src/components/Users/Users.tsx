@@ -1,8 +1,8 @@
 import React from 'react';
 import s from "./Users.module.css"
 import userPhoto from "../../assets/images/user-latin-woman.jpeg"
-import {UsersInitialStateType} from "../../redux/users_reducer";
 import {NavLink} from "react-router-dom";
+import {UsersInitialStateType} from "../../redux/users_reducer";
 
 
 export const Users = (props: UsersPropsType) => {
@@ -16,13 +16,14 @@ export const Users = (props: UsersPropsType) => {
         <div>
             <div>
                 {pages.map((p, index) => {
-                    // console.log(props.currentPage)
-                    return <span className={props.currentPage === p ? s.selectedPage : ""}
-                                 onClick={() => props.onPageChanged(p)}
-                                 key={index}>
-                        {p}
+                        return <span className={props.currentPage === p ? s.selectedPage : ""}
+                                     onClick={() => props.onPageChanged(p)}
+                                     key={index}>
+                        {p + ' '}
                     </span>
-                })}
+                    }
+                )
+                }
             </div>
             {props.usersPage.users.map(user => {
                 return <div key={user.id}>
@@ -54,7 +55,8 @@ export const Users = (props: UsersPropsType) => {
                         </span>
                     </span>
                 </div>
-            })}
+            })
+            }
         </div>)
 }
 

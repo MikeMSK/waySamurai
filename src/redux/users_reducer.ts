@@ -27,6 +27,7 @@ export const usersReducer = (state: UsersInitialStateType = initialState,
                     : u
                 )
             }
+
         case SET_USERS:
             return {...state, users: [...action.users]}
         case SET_CURRENT_PAGE:
@@ -70,22 +71,23 @@ export const toggleIsFollowingProgressAC = (isFetching: boolean, userId: number)
 }
 
 //---- thunks -----
-export const getUsersTC = (currentPage: number, pageSize: number) => {
+export const requestUsersTC = (page: number, pageSize: number) => {
     return (dispatch: any) => {
         dispatch(toggleIsFetchingAC(true))
-
-        usersAPI.getUsers(currentPage, pageSize)
+        dispatch(setCurrentPageAC(page))
+        usersAPI.requestUsers(page, pageSize)
             .then(data => {
-                dispatch(toggleIsFetchingAC(false))
                 dispatch(setUsersAC(data.items))
+                dispatch(toggleIsFetchingAC(false))
                 dispatch(setTotalUsersCountAC(data.totalCount))
             })
+            .catch((err) => console.log(err.messages))
     }
 }
+
 export const followTC = (userID: number) => {
     return (dispatch: any) => {
         dispatch(toggleIsFollowingProgressAC(true, userID))
-
         usersAPI.follow(userID)
             .then(data => {
                 if (data.resultCode === 0) {
@@ -98,7 +100,6 @@ export const followTC = (userID: number) => {
 export const unfollowTC = (userID: number) => {
     return (dispatch: any) => {
         dispatch(toggleIsFollowingProgressAC(true, userID))
-
         usersAPI.unfollow(userID)
             .then(data => {
                 if (data.resultCode === 0) {
