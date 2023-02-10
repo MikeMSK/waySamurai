@@ -33,7 +33,7 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType> {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
 
-            <Users usersPage={this.props.users}
+            <Users users={this.props.users}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
                    totalUsersCount={this.props.totalUsersCount}

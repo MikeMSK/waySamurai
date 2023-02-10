@@ -2,7 +2,7 @@ import React from 'react';
 import s from "./Users.module.css"
 import userPhoto from "../../assets/images/user-latin-woman.jpeg"
 import {NavLink} from "react-router-dom";
-import {UsersInitialStateType} from "../../redux/users_reducer";
+import {UsersInitialStateType, UserType} from "../../redux/users_reducer";
 
 
 export const Users = (props: UsersPropsType) => {
@@ -25,7 +25,7 @@ export const Users = (props: UsersPropsType) => {
                 )
                 }
             </div>
-            {props.usersPage.users.map(user => {
+            {props.users.map(user => {
                 return <div key={user.id}>
                 <span>
                     <div>
@@ -65,7 +65,7 @@ type UsersPropsType = {
     pageSize: number,
     currentPage: number
     totalUsersCount: number,
-    usersPage: UsersInitialStateType
+    users: Array<UserType>
     followingInProgress: Array<number>
 
     follow: (userID: number) => void
