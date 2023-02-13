@@ -2,6 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatus/ProfileStatusWithHooks";
 
 type ProfilePropsType = {
     profile: any
@@ -20,8 +21,8 @@ export const ProfileInfo = (props: ProfilePropsType) => {
                     ? <img src={props.profile.data.photos.large}/>
                     : <img src={"https://hornews.com/upload/images/blank-avatar.jpg"}/>}
 
-                <ProfileStatus status={props.status}
-                               updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHooks status={props.status}
+                                        updateStatus={props.updateStatus}/>
 
                 <div>{props.profile.data.fullName}</div>
             </div>
