@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './../ProfileInfo.module.css'
 import {threadId} from "worker_threads";
 
@@ -12,6 +12,11 @@ export const ProfileStatusWithHooks = (props: ProfileStatusType) => {
 
     let [editMode, setEditMode] = useState(false)
     let [status, setStatus] = useState("")
+
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status]);
+
 
     const activateEditMode = () => {
         setEditMode(true)
